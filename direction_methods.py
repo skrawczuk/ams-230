@@ -4,8 +4,7 @@ import numpy as np
 
 class Newton(LineSearch):
     def __init__(self, *args, **kwargs):
-        hess_cost = kwargs['hess_f']
-        del kwargs['hess_f']
+        hess_cost = kwargs.pop('hess_f')
         self.hess_cost = lambda x: hess_cost(x, **kwargs)
 
         super().__init__(*args, **kwargs)
