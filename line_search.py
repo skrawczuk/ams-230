@@ -23,7 +23,7 @@ class LineSearch:
         for i in range(self.max_iterations):
             p = self.step_direction(x[i])
             # a = line_search(self.cost, self.grad_cost, x[i], p.squeeze())[0]
-            a = self.step_length(p, x[i], c1, c2, a_max)
+            a = self.step_length(p, x[i])
 
             try:
                 x[i+1] = x[i] + a * p
