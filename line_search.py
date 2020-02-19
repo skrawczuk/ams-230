@@ -12,9 +12,6 @@ class LineSearch:
         """
         :param x0: initial guess
         :param tol: stopping tolerance for p magnitude
-        :param c1: Wolfe condition lower bound
-        :param c2: Wolfe condition upper bound
-        :param a_max: maximum step size
         :param verbose: interval of logging update
         :return: x for each iteration
         """
@@ -46,6 +43,15 @@ class LineSearch:
         return -self.grad_cost(x)
 
     def step_length(self, p, x, c1=0.1, c2=0.9, a_max=1e6, max_iters=50):
+        """
+        :param p: step direction
+        :param x: current value
+        :param c1: Wolfe condition lower bound
+        :param c2: Wolfe condition lower bound
+        :param a_max: max step size
+        :param max_iters: max iterations of loop
+        :return:
+        """
         a0 = 0
         a_ast = 0.5 * a_max
 
