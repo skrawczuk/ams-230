@@ -8,7 +8,7 @@ class LineSearch:
         self.grad_cost = lambda x: grad_function(x, **kwargs)
         self.max_iterations = max_iterations
 
-    def minimize(self, x0, tol, c1=0.1, c2=0.9, a_max=1e6, verbose=False):
+    def minimize(self, x0, tol, verbose=False):
         """
         :param x0: initial guess
         :param tol: stopping tolerance for p magnitude
@@ -22,8 +22,8 @@ class LineSearch:
         x[0] = x0
         for i in range(self.max_iterations):
             p = self.step_direction(x[i])
-            a = self.step_length(p, x[i], c1, c2, a_max)   # homemade step length
-            #  a = line_search(self.cost, self.grad_cost, x[i], p.squeeze())[0]  # scipy implemented step length
+            # a = line_search(self.cost, self.grad_cost, x[i], p.squeeze())[0]
+            a = self.step_length(p, x[i], c1, c2, a_max)
 
             try:
                 x[i+1] = x[i] + a * p
@@ -45,7 +45,7 @@ class LineSearch:
         """
         return -self.grad_cost(x)
 
-    def step_length(self, p, x, c1, c2, a_max, max_iters=5):
+    def step_length(self, p, x, c1=0.1, c2=0.9, a_max=1e6, max_iters=50):
         a0 = 0
         a_ast = 0.5 * a_max
 
@@ -94,4 +94,3 @@ class LineSearch:
                 a_low = a
                 phi_low = phi
         return a
-
