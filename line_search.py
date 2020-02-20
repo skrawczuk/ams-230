@@ -10,10 +10,18 @@ class LineSearch:
 
     def minimize(self, x0, tol, verbose=False):
         """
-        :param x0: initial guess
-        :param tol: stopping tolerance for p magnitude
-        :param verbose: interval of logging update
-        :return: x for each iteration
+        Parameters
+        ----------
+        x0 : array_like
+            initial guess
+        tol : float
+            stopping tolerance for p magnitude
+        verbose : bool
+            interval of logging update
+        Returns
+        -------
+        x : array_like
+            x-value for each iteration
         """
         x = np.zeros((self.max_iterations+1, x0.shape[0]))
         x[0] = x0
@@ -44,13 +52,25 @@ class LineSearch:
 
     def step_length(self, p, x, c1=0.1, c2=0.9, a_max=1e6, max_iters=50):
         """
-        :param p: step direction
-        :param x: current value
-        :param c1: Wolfe condition lower bound
-        :param c2: Wolfe condition lower bound
-        :param a_max: max step size
-        :param max_iters: max iterations of loop
-        :return:
+        Parameters
+        ----------
+        p : array_like
+            step direction
+        x : array_like
+            current value array
+        c1 : float
+            Wolfe condition lower bound
+        c2 : float
+            Wolfe condition lower bound
+        a_max : float
+            max step size
+        max_iters : int
+            max iterations of loop
+
+        Returns
+        -------
+        a_ast : float
+            length of minimization step
         """
         a0 = 0
         a_ast = 0.5 * a_max
